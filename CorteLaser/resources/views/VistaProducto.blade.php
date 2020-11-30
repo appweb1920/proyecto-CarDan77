@@ -16,9 +16,9 @@
             <h3>{{$producto->TipoMaterial}}</h3>
             <h2>Material Necesario:</h2>       
             @if ($producto->MaterialNecesario > 1)
-                <h3>{{$producto->MaterialNecesario}} tablas</h3>
+                <h3>{{$producto->MaterialNecesario}} Piezas</h3>
             @else
-                <h3>{{$producto->MaterialNecesario}} tabla</h3>
+                <h3>{{$producto->MaterialNecesario}} Pieza</h3>
             @endif
             <h2>Precio:</h2>
             <h3>${{$producto->Precio}}MXN</h3>

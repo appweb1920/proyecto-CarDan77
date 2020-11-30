@@ -26,8 +26,7 @@ class ProductosController extends Controller
         
         $producto->save();
 
-        $productos = Productos::all();
-        return redirect('/home')->with('productos', $productos);
+        return redirect('/home');
 
     }
 
