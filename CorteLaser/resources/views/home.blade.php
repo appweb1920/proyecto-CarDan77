@@ -23,11 +23,14 @@
 
 
        
-
+        <?php
+        $user = Auth::user()->rol ;
+        ?>
+        @if( $user == "Admin")
         
         <button type="button" class="btn" style="background-color: rgb(122, 17, 17);display:scroll;position:fixed;bottom:3%;right:0.5%; color:white" data-toggle="modal" data-target="#myModal" id="open">+ Añadir</button>
     
-
+        @endif
         <!--------Modal-------->
         
         <form method="POST" action="/guardaProducto" id="form" enctype="multipart/form-data">
@@ -67,8 +70,13 @@
                         <div class="form-group col-md-12">
                           <label for="Servicio a empresa">Fabricado en:</label>
                           <select id="tipoMaterial" name="tipoMaterial" class="rowser-default custom-select">
-                            <option value="MDF 3mm">MDF 3mm</option>
-                            <option value="Acrilico 3mm">Acrilico 3mm</option>
+                            @foreach ($materiales as $mat)
+                            @if ($mat->TipoMaterial == 'Principal')
+                            <option value="{{$mat->Nombre}}">{{$mat->Nombre}}</option>
+                            @endif
+                            
+                                
+                            @endforeach
                           </select>     
                         </div>
                       </div>

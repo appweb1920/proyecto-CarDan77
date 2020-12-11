@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Productos;
+use App\Materiales;
 
 class ProductosController extends Controller
 {
     public function EnviaProductos()
     {
         $productos=Productos::all();
-        return view('home')->with('productos', $productos);
+        $materiales=Materiales::all();
+        return view('home')->with('productos', $productos)->with('materiales', $materiales);
     }
     public function guardaProducto(Request $request)
     {
@@ -33,7 +35,9 @@ class ProductosController extends Controller
     public function VistaProducto($id)
     {
         $producto=Productos::find($id);
-        return view('VistaProducto')->with('producto',$producto);
+        
+        $materiales=Materiales::all();
+        return view('VistaProducto')->with('producto',$producto)->with('materiales', $materiales);
     }
 
     public function guardaEdicion(Request $request)
@@ -45,13 +49,19 @@ class ProductosController extends Controller
         $producto->TipoMaterial=$request->tipoMaterial;
         $producto->MaterialNecesario=$request->cantidadMaterial;
         
-        $request->file('imagen')->storeAs('public',$producto->Nombre.'.'.$request->file('imagen')->getClientOriginalExtension());
-        $producto->imagen=$producto->Nombre.'.'.$request->file('imagen')->getClientOriginalExtension();
+        if(!is_null($request->file('imagen')))
+        {
+            $request->file('imagen')->storeAs('public',$producto->Nombre.'.'.$request->file('imagen')->getClientOriginalExtension());
+            $producto->imagen=$producto->Nombre.'.'.$request->file('imagen')->getClientOriginalExtension();
+        
+
+        }
+
         
         $producto->save();
 
-        
-        return view('VistaProducto')->with('producto',$producto);
+        $materiales=Materiales::all();
+        return view('VistaProducto')->with('producto',$producto)->with('materiales', $materiales);
 
     }
 

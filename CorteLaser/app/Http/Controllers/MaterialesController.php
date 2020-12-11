@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Materiales;
 use App\HistorialCompraMaterial;
+use App\Pedidos;
+use App\Productos;
 
 class MaterialesController extends Controller
 {
@@ -34,7 +36,14 @@ class MaterialesController extends Controller
     {
         $material=Materiales::find($id);
         $agregados=HistorialCompraMaterial::all();
-        return view('DetalleMaterial')->with('material',$material)->with('agregados', $agregados);
+        $Pedidos = Pedidos::all();
+        $Productos = Productos::all();
+        return view('DetalleMaterial')->with('material',$material)->with('agregados', $agregados)
+        ->with('Productos', $Productos)
+        ->with('Pedidos',$Pedidos);
+
+        
+        
         
     }
 
@@ -45,14 +54,23 @@ class MaterialesController extends Controller
         $material->DescripcionUso=$request->descripcion;
         $material->CostoPieza=$request->precio;
         $material->TipoMaterial=$request->tipo;
-        
-        $request->file('imagen')->storeAs('public',$material->Nombre.'.'.$request->file('imagen')->getClientOriginalExtension());
-        $material->imagen=$material->Nombre.'.'.$request->file('imagen')->getClientOriginalExtension();
-        
-        $material->save();
 
+        if(!is_null($request->file('imagen')))
+        {
+            $request->file('imagen')->storeAs('public',$material->Nombre.'.'.$request->file('imagen')->getClientOriginalExtension());
+            $material->imagen=$material->Nombre.'.'.$request->file('imagen')->getClientOriginalExtension();
+    
+        }
+        
+       
+        $material->save();
+        $material=Materiales::find($material->id);
         $agregados=HistorialCompraMaterial::all();
-        return view('DetalleMaterial')->with('material',$material)->with('agregados', $agregados);
+        $Pedidos = Pedidos::all();
+        $Productos = Productos::all();
+        return view('DetalleMaterial')->with('material',$material)->with('agregados', $agregados)
+        ->with('Productos', $Productos)
+        ->with('Pedidos',$Pedidos);
         
        
 

@@ -24,9 +24,14 @@
             <h3>${{$producto->Precio}}MXN</h3>
         </div>
 
+        <?php
+    $user = Auth::user()->rol ;
+    ?>
+    @if( $user == "Admin")
+
         <button type="button" class="btn btn-primary" style="display:scroll;position:fixed;bottom:10%;right:0.5%; color:white" data-toggle="modal" data-target="#myModalEdicion" id="open">Editar</button>
     <button type="button" class="btn btn-danger"  style="display:scroll;position:fixed;bottom:3%;right:0.5%; color:white" onclick="location.href='/BorrarProd/{{$producto->id}}'">Borrar</button>
-
+      @endif
 
          <!--------Modal-------->
         
@@ -68,8 +73,10 @@
                         <div class="form-group col-md-12">
                           <label for="Servicio a empresa">Fabricado en:</label>
                           <select id="tipoMaterial" name="tipoMaterial" class="rowser-default custom-select" value="{{$producto->TipoMaterial}}">
-                            <option value="MDF 3mm">MDF 3mm</option>
-                            <option value="Acrilico 3mm">Acrilico 3mm</option>
+                            @foreach ($materiales as $mat)
+                            <option value="{{$mat->Nombre}}">{{$mat->Nombre}}</option>
+                                
+                            @endforeach
                           </select>     
                         </div>
                       </div>

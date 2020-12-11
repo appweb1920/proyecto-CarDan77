@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistorialCompraMaterial extends Migration
+class CreateProductos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateHistorialCompraMaterial extends Migration
      */
     public function up()
     {
-        Schema::create('historial_compra_material', function (Blueprint $table) {
+        Schema::create('productos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_material');
-            $table->foreign('id_material')->references('id')->on('materiales')->onDelete('cascade');
-            $table->string('PiezasAdquiridas');
-            $table->string('GastoTotal');
+            $table->string('Nombre');
+            $table->string('Descripcion');
+            $table->string('Precio');
+            $table->string('TipoMaterial');
+            $table->string('MaterialNecesario');
+            $table->string('imagen');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +33,6 @@ class CreateHistorialCompraMaterial extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historial_compra_material');
+        Schema::dropIfExists('productos');
     }
 }

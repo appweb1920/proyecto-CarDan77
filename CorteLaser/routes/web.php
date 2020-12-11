@@ -17,20 +17,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home', 'ProductosController@EnviaProductos');
-Route::get('/materiales', 'MaterialesController@EnviaMateriales');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/home', 'ProductosController@EnviaProductos')->middleware('auth');
+Route::get('/materiales', 'MaterialesController@EnviaMateriales')->middleware('auth');
+Route::get('/pedidosyventas', 'PedidosController@EnviaPedidos')->middleware('auth');
+Route::get('/gananciasygastos', 'PedidosController@EnviaGG')->middleware('auth'); 
 
-Route::post('/guardaProducto', 'ProductosController@guardaProducto');
-Route::get('/verproducto/{id}', 'ProductosController@VistaProducto');
-Route::post('/guardaEdicion', 'ProductosController@guardaEdicion');
-Route::get('/BorrarProd/{id}', 'ProductosController@BorrarProd');
 
-Route::post('/guardaMaterial', 'MaterialesController@guardaMaterial');
-Route::get('/detallesmaterial/{id}', 'MaterialesController@VistaMaterial');
-Route::post('/guardaEdicionMaterial', 'MaterialesController@guardaEdicionMaterial');
-Route::get('/BorrarMaterial/{id}', 'MaterialesController@BorrarMaterial');
+Route::post('/guardaProducto', 'ProductosController@guardaProducto')->middleware('auth');
+Route::get('/verproducto/{id}', 'ProductosController@VistaProducto')->middleware('auth');
+Route::post('/guardaEdicion', 'ProductosController@guardaEdicion')->middleware('auth');
+Route::get('/BorrarProd/{id}', 'ProductosController@BorrarProd')->middleware('auth');
 
-Route::post('/guardaAgregado/{id}', 'MaterialesController@guardaAgregado');
+Route::post('/guardaMaterial', 'MaterialesController@guardaMaterial')->middleware('auth');
+Route::get('/detallesmaterial/{id}', 'MaterialesController@VistaMaterial')->middleware('auth');
+Route::post('/guardaEdicionMaterial', 'MaterialesController@guardaEdicionMaterial')->middleware('auth');
+Route::get('/BorrarMaterial/{id}', 'MaterialesController@BorrarMaterial')->middleware('auth');
+
+Route::post('/guardaAgregado/{id}', 'MaterialesController@guardaAgregado')->middleware('auth');
+Route::post('/guardaPedido', 'PedidosController@guardaPedido')->middleware('auth');
+
+Route::get('/vendido/{id}', 'PedidosController@Venta')->middleware('auth');
+
+Route::get('/borrarPedido/{id}', 'PedidosController@BorrarPedido')->middleware('auth');
+
+
+

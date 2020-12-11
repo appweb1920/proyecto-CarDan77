@@ -63,17 +63,17 @@
             }
         </style>
     </head>
-    <body>
+    <body style="background-color: rgb(122,17,17);">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a style=" color:white" href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a style="  color:white" href="{{ route('login') }}">Iniciar Sesion</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a style=" color:white" href="{{ route('register') }}">Registrar</a>
                         @endif
                     @endauth
                 </div>
@@ -81,19 +81,14 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    
+                    <h1 style="float: left; color:rgb(189,138,62) ;margin-top:4%; margin-left:2%; font-size:70px">Corte y Grabado Laser González</h1>
+                    <br>
+                    <img style="width: 10%;float: center;" src="{{asset('img/logoFinal2.png')}}" alt="LOGO">
+                    
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+               
             </div>
         </div>
     </body>

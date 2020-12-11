@@ -30,9 +30,7 @@
                             @endif
                             
                         @endforeach
-                     
-                   
-                    
+
                     </tbody>
                   </table>
             </div>
@@ -44,14 +42,32 @@
                 <h3>{{$material->TipoMaterial}}</h3>
                 <h2>Costo por Pieza:</h2>
                 <h3>${{$material->CostoPieza}}MXN C/u</h3>
+                @if ($material->TipoMaterial == 'Principal')
                 <h2>Piezas Disponibles:</h2>
-                <?php $TotalPiezas = 0; ?>
+                <?php $TotalPiezas = 0; $Utilizado=0; $Disponible=0;?>
                 @foreach ($agregados as $dato)
                 @if ($dato->id_material == $material->id)
                     <?php $TotalPiezas = $TotalPiezas + $dato->PiezasAdquiridas?>
                 @endif
                 @endforeach
-                <h3>{{$TotalPiezas}}</h3>
+                @foreach ($Pedidos as $pedido)
+                        @foreach ($Productos as $prod)
+
+                        @if ($pedido->id_producto == $prod->id && $pedido->Vendido == 1 )
+                            <?php $Utilizado = $Utilizado + $prod->MaterialNecesario;?>
+                        @endif
+
+                        <?php $Disponible = $TotalPiezas - $Utilizado; ?>
+
+                        @endforeach
+                @endforeach
+
+
+
+
+                <h3>{{$Disponible}}</h3>
+                @endif
+               
             </div>
     
 
